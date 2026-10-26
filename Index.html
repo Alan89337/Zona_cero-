@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zona Cero</title>
+<style>
+ body{margin:0;background:#0a0a0a;color:white;font-family:sans-serif;text-align:center}
+ h1{color:#ff7a00;margin-top:20px}
+ canvas{background:#1a1a1a;border:2px solid #ff7a00;border-radius:12px}
+</style>
+</head>
+<body>
+<h1>ZONA CERO</h1>
+<p>Toca para subir - Sobrevive</p>
+<canvas id="c" width="320" height="500"></canvas>
+<script>
+const canvas=document.getElementById('c'); const ctx=canvas.getContext('2d');
+let y=250, vy=0, obs=[];
+function draw(){
+ctx.clearRect(0,0,320,500);
+ctx.fillStyle='#ff7a00'; ctx.fillRect(150,y,20,20);
+vy+=0.3; y+=vy;
+obs.forEach(o=>{o.y+=2; ctx.fillStyle='gray'; ctx.fillRect(o.x,o.y,40,12);});
+if(Math.random()<0.04) obs.push({x:Math.random()*280,y:-10});
+if(y>500||y<0){y=250;vy=0;obs=[];}
+}
+setInterval(draw,16);
+canvas.addEventListener('touchstart',()=>{vy=-6});
+</script>
+</body>
+</html>
